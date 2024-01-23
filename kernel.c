@@ -11,31 +11,8 @@ void print_string(const char *str, int row, int col, uint8_t color) {
     }
 }
 
-char check_q_key() {
-    char key;
-    asm volatile (
-        "int $0x16\n"
-        : "=a" (key)
-        : "a" (0x00)
-    );
-    return key;
-}
-
-void restart_os() {
-    asm volatile (
-        "int $0x19\n"
-    );
-}
 
 void kernel_main() {
 
-    
     print_string("Hello, kernel World!", 0, 0, 0x03);
-    while (1){
-	char key = check_q_key();
-
-	if(key == 'Q' || key == 'q'){
-		restart_os();
-	}
-    }
 }
