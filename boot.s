@@ -34,6 +34,7 @@ stackTop:
 _start:
 
   # assign current stack pointer location to stackTop
+  #int $0x16
 	mov $stackTop, %esp
 
   # call the kernel main source
