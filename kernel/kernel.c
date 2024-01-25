@@ -5,6 +5,16 @@
 #define VGA_MEMORY 0xB8000
 #define KEYBOARD_PORT 0x60
 
+void sleep(uint32 delay)
+{
+    while(1){
+        asm volatile("nop");
+        delay--;
+        if(delay <= 0)
+            break;
+    }
+}
+
 
 void clear_screen() {
     volatile uint16_t* video_memory = (uint16_t*)VGA_MEMORY;
@@ -87,6 +97,8 @@ void terminal_window(){
 
 void kernel_main() {
 
+    //Added sleep
+    sleep(0x2FFFFFFF);
     print_string("Welcome to Simple-OS by Kubzel", 0, 0, 0x03);
     print_string("-------------------\n", 0, 1, 0x03);
     int selected_option = 0;
