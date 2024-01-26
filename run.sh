@@ -1,7 +1,10 @@
 #!/bin/bash
 
+clean_up() {
+    rm -rf boot.o isodir/ kernel.o
+}
+
 build_kernel() {
-    # Assemble boot.s file
     as --32 boot.s -o boot.o
     if [ $? -ne 0 ]; then
         echo "Error assembling boot.s. Exiting."
@@ -29,6 +32,8 @@ build_kernel() {
     fi
 
     echo "Os built successfully."
+    clean_up
+    echo "Cleaned up"
 }
 
 echo "Do you want to (1) build kernel only or (2) build and run?"
